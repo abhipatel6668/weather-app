@@ -5,4 +5,55 @@
         <title> Weather App by Abhi</title>
         <link rel="stylesheet" href="style.css">
     </head>
+    <body>
+        <div class="card">
+            <div class="search">
+                <input type="text" placeholder="Enter Name of City"
+                spellcheck="false">
+                <button><img src="images/search-512.webp"
+        
+                    ></button>
+                
+            </div>
+            <div class="weather">
+                <img src ="images/sunny.png" class="weather-icon">
+                <h1 class="temp">76°F</h1>
+                <h2 class="city">Chicago</h2>
+                <div class="details">
+                    <div class="col">
+                        <img src = "images/humidity.png">
+                        <div><p class="humidity">50%</p><p>Humidity</p></div>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src = "images/wind.png">
+                    <div><p class="wind">10mph</p><p>Wind Speed</p></div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+    <script>
+        const key = "3107c1812f56d4ae0beac6374463fe2a";
+        const url = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=";
+        const searchEntry = document.querySelector(".search input");
+        const searchButton = document.querySelector(".search button");
+
+        async function inputWeather(city){
+            const response = await fetch(url + city + '&appid=' + key);
+            var data = await response.json();
+
+            console.log(data);
+
+            document.querySelector(".city").innerHTML = data.name;
+            document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+            document.querySelector(".temp").innerHTML = data.main.temp + "°F";
+            document.querySelector(".wind").innerHTML = data.wind.speed + "MPH";
+        }
+
+        searchButton.addEventListener("click", ()=>{
+        inputWeather(searchEntry.value);
+        })
+    </script>
 </html>
