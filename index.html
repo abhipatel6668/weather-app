@@ -18,26 +18,42 @@
                <p>Invalid City Name</p> 
             </div>
             <div class="weather">
-                <img src ="images/clear.png" class="weather-icon">
+                <img src="images/clear.png" class="weather-icon">
                 <h1 class="temp">76°F</h1>
                 <h2 class="city">Chicago</h2>
                 <div class="details">
                     <div class="col">
                         <img src="images/humidity.png">
                         <div>
-                            <p class="humidity">50%</p>
+                            <p class="humidity">64%</p>
                             <p>Humidity</p>
                         </div>
                     </div>
                     <div class="col">
                         <img src="images/wind.png">
                         <div>
-                            <p class="wind">10mph</p>
+                            <p class="wind">12.66 mph</p>
                             <p>Wind Speed</p>
+                            <p class="wind-deg">NE</p>
                         </div>
                     </div>
                 </div>
-                
+                <div class="additional-details">
+                    <div class="col">
+                        <p>Feels Like: <span class="feels-like">68.36°F</span></p>
+                        <p>Min Temp: <span class="min-temp">66.97°F</span></p>
+                        <p>Max Temp: <span class="max-temp">70.09°F</span></p>
+                    </div>
+                    <div class="col">
+                        <p>Pressure: <span class="pressure">30.12 inHg</span></p>
+                        <p>Visibility: <span class="visibility">6.21 miles</span></p>
+                        <p>Cloudiness: <span class="cloudiness">20%</span></p>
+                    </div>
+                    <div class="col">
+                        <p>Sunrise: <span class="sunrise">6:30 AM</span></p>
+                        <p>Sunset: <span class="sunset">7:30 PM</span></p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
@@ -68,6 +84,15 @@
                 document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
                 document.querySelector(".temp").innerHTML = data.main.temp + "°F";
                 document.querySelector(".wind").innerHTML = data.wind.speed + "MPH";
+                document.querySelector(".feels-like").innerHTML = data.main.feels_like + "°F";
+            document.querySelector(".min-temp").innerHTML = data.main.temp_min + "°F";
+            document.querySelector(".max-temp").innerHTML = data.main.temp_max + "°F";
+            document.querySelector(".pressure").innerHTML = data.main.pressure + " hPa";
+            document.querySelector(".visibility").innerHTML = (data.visibility / 1609.34).toFixed(2) + " miles"; 
+            document.querySelector(".cloudiness").innerHTML = data.clouds.all + "%";
+            document.querySelector(".sunrise").innerHTML = formatTime(data.sys.sunrise, data.timezone);
+            document.querySelector(".sunset").innerHTML = formatTime(data.sys.sunset, data.timezone);
+
                 if(data.weather[0].main == "Clear")
                 {
                     weatherLogo.src = "images/clear.png";
@@ -101,6 +126,16 @@
             }
         }
 
+        function convertWindDirection(deg) {
+            const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+            const index = Math.round(deg / 45) % 8;
+            return directions[index];
+        }
+
+        function formatTime(unixTime, timezoneOffset) {
+        const utcDate = new Date(unixTime * 1000);
+        return utcDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
         searchButton.addEventListener("click", ()=>{
         inputWeather(searchEntry.value);
         })

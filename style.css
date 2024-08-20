@@ -69,25 +69,54 @@ body{
     margin-top:-10px;
 }
 
-.details{
+.additional-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.additional-details .col {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+.details {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
     margin-top: 50px;
-
 }
 
-.col{
+.col {
     display: flex;
     align-items: center;
     text-align: left;
     margin-right: 20px;
 }
 
-.col img{
+.col img {
     width: 40px;
     margin-right: 10px;
+}
+
+.humidity, .wind {
+    font-size: 28px;
+    margin-top: -6px;
+}
+
+.wind-deg {
+    font-size: 18px;
+    color: #ddd;
+    margin-top: 4px;
+}
+
+.weather-icon {
+    width: 150px;
+    margin-top: 20px;
 }
 
 .humidity, .wind{
@@ -107,3 +136,5 @@ body{
     margin-top: 10px;
     display: none;
 }
+
+
